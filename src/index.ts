@@ -18,6 +18,9 @@ app.use(express.json())
 // Routes
 app.use('/api/user', authRoute);
 app.use('/api/protected', protectedRoutes); // just for example
+app.use('/', (req, res) => {
+    res.json({ msg: 'Hello World!' })
+})
 app.use(notFound)
 app.use(errorHandlerMiddleware)
 

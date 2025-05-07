@@ -26,6 +26,9 @@ console.log("process.env.PORT", process.env.PORT);
 app.use(express_1.default.json());
 app.use('/api/user', auth_1.default);
 app.use('/api/protected', protected_1.default);
+app.use('/', (req, res) => {
+    res.json({ msg: 'Hello World!' });
+});
 app.use(not_found_1.notFound);
 app.use(error_handler_1.errorHandlerMiddleware);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
