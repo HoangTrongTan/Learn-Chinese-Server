@@ -31,6 +31,8 @@ app.use("/api/protected", protectedRoutes); // just for example
 app.use("/", async (req, res) => {
   try {
     const data = await modelTest.find({});
+    console.log(data);
+    console.log("loging....");
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch data" });

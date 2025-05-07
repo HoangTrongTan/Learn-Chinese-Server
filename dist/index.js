@@ -37,6 +37,8 @@ app.use("/api/protected", protected_1.default);
 app.use("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield modelTest.find({});
+        console.log(data);
+        console.log("loging....");
         res.json(data);
     }
     catch (error) {
