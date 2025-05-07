@@ -31,10 +31,9 @@ app.use("/api/protected", protectedRoutes); // just for example
 app.use("/", async (req, res) => {
   try {
     const data = await modelTest.find({});
-    console.log(data);
-    console.log("loging....");
+    console.log("data", data);
     res.json(data);
-  } catch (error) {
+} catch (error) {
     res.status(500).json({ error: "Failed to fetch data" });
   }
 });
@@ -43,7 +42,6 @@ app.use(errorHandlerMiddleware);
 
 const start = async () => {
   try {
-    console.log("process.env.MONGO_URI", process.env.MONGO_URI);
     await connectDB(process.env.MONGO_URI);
     app.listen(port, () => console.log(`Server listening on port ${port}...`));
   } catch (err) {

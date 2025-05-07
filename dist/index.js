@@ -37,8 +37,7 @@ app.use("/api/protected", protected_1.default);
 app.use("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const data = yield modelTest.find({});
-        console.log(data);
-        console.log("loging....");
+        console.log("data", data);
         res.json(data);
     }
     catch (error) {
@@ -49,7 +48,6 @@ app.use(not_found_1.notFound);
 app.use(error_handler_1.errorHandlerMiddleware);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("process.env.MONGO_URI", process.env.MONGO_URI);
         yield (0, connect_1.connectDB)(process.env.MONGO_URI);
         app.listen(port, () => console.log(`Server listening on port ${port}...`));
     }
