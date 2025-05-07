@@ -1,6 +1,11 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
-export const connectDB = (url: string) => {
+export const connectDB = async (url: string) => {
+  try {
     mongoose.set("strictQuery", false);
-    return mongoose.connect(url)
-} 
+    await mongoose.connect(url);
+    console.log("✅ MongoDB connection successful");
+  } catch (error) {
+    console.log("❌ MongoDB connection failed:", error);
+  }
+};
