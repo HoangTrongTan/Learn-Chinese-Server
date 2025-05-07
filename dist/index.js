@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
+const connect_1 = require("./db/connect");
 const not_found_1 = require("./middleware/not-found");
 const error_handler_1 = require("./middleware/error-handler");
 const auth_1 = __importDefault(require("./routes/auth"));
@@ -32,7 +33,7 @@ app.use(not_found_1.notFound);
 app.use(error_handler_1.errorHandlerMiddleware);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log("process.env.MONGO_URI", process.env.MONGO_URI);
+        yield (0, connect_1.connectDB)(process.env.MONGO_URI);
         app.listen(port, () => console.log(`Server listening on port ${port}...`));
     }
     catch (err) {
