@@ -20,19 +20,34 @@ const error_handler_1 = require("./middleware/error-handler");
 const auth_1 = __importDefault(require("./routes/auth"));
 const protected_1 = __importDefault(require("./routes/protected"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const mongoose_1 = __importDefault(require("mongoose"));
+const testSchema = new mongoose_1.default.Schema({
+    hello: {
+        type: String,
+        required: true,
+    },
+});
+const modelTest = mongoose_1.default.model("Test", testSchema);
 dotenv_1.default.config();
 const port = process.env.PORT || 3000;
 console.log("process.env.PORT", process.env.PORT);
 app.use(express_1.default.json());
-app.use('/api/user', auth_1.default);
-app.use('/api/protected', protected_1.default);
-app.use('/', (req, res) => {
-    res.json({ msg: 'Hello World!' });
-});
+app.use("/api/user", auth_1.default);
+app.use("/api/protected", protected_1.default);
+app.use("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield modelTest.find({});
+        res.json(data);
+    }
+    catch (error) {
+        res.status(500).json({ error: "Failed to fetch data" });
+    }
+}));
 app.use(not_found_1.notFound);
 app.use(error_handler_1.errorHandlerMiddleware);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("process.env.MONGO_URI", process.env.MONGO_URI);
         yield (0, connect_1.connectDB)(process.env.MONGO_URI);
         app.listen(port, () => console.log(`Server listening on port ${port}...`));
     }
